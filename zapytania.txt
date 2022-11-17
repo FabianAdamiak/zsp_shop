@@ -1,1 +1,6 @@
-...
+Zacznij od stworzenia zapytania pozwalającego sprawdzić czy dane klienta są pozwalają na zalogowanie.
+
+SELECT co_zaprezentować FROM nazwa_tabeli 
+[WHERE warunki_wyszukiwania]
+[ORDER BY sortowanie [ASC | DESC], ...]
+[LIMIT [ofset,] ilość_wierszy];
