@@ -1,5 +1,5 @@
 <html>
-<head>
+    <head>
     <meta charset="UTF-8">
     <title>OLX dla gorszych</title>
     <link rel="stylesheet" href="style.css">
