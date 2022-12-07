@@ -1,6 +1,57 @@
-Zacznij od stworzenia zapytania pozwalającego sprawdzić czy dane klienta są pozwalają na zalogowanie.
 
-SELECT co_zaprezentować FROM nazwa_tabeli 
-[WHERE warunki_wyszukiwania]
-[ORDER BY sortowanie [ASC | DESC], ...]
-[LIMIT [ofset,] ilość_wierszy];
+Zapytanie dotyczace detali zakupionego zamowienia
+================================================================
+SELECT orders.offer_id, orders.user_id, offers.offer_name, offers.description, offers.price 
+FROM orders JOIN offers ON orders.offer_id=offers.id where orders.user_id="4"
+AND orders.offer_id="7";
+
+
+Zapytanie dotyczące nie kupionych przedmiotów
+===============================================================
+SELECT offers.offer_name, offers.price from offers WHERE offers.id 
+NOT IN (SELECT offer_id FROM orders);
+
+
+Zapytanie dotyczące detali danej nie kupionej oferty
+===============================================================
+SELECT offers.id, offers.offer_name, offers.description, offers.price from offers 
+WHERE offers.id="5" AND offers.id NOT IN (SELECT offer_id FROM orders);
+
+
+Zapytanie dotyczące zakupu przedmiotu
+===============================================================
+INSERT INTO orders (`offer_id`, `user_id`) VALUES ('8','3');
+
+
+Zapytanie które dodaje nowego użytkownika
+===============================================================
+INSERT INTO users(`email`, `password`, `is_admin`) 
+VALUES ('maupa@wp.pl','zsp','0');
+
+
+Zapytanie dotyczące listy ofert konkretnego użytkownika
+===============================================================
+SELECT offers.offer_name, offers.price from offers where offers.user_id="1";
+
+
+Zapytanie ktore edytuje oferte
+==============================================================
+UPDATE offers SET offers.offer_name="[value-1]",offers.description="[value-2]",
+offers.price="[value-3]" WHERE offers.id="1";
+
+
+Zapytanie ktore wyswietla detale oferty
+==============================================================
+SELECT offers.offer_name, offers.description, offers.price from offers where offers.id="1";
+
+
+Zapytanie ktore dodaje nowa oferte 
+==============================================================
+INSERT INTO `offers`(`user_id`, `offer_name`, `description`, `price`) 
+VALUES ('1','nwm','swietny zakup','100');
+
+
+Zapytanie dotycząde mojej listy zakupów
+==============================================================
+SELECT orders.user_id, offers.offer_name, offers.price FROM orders 
+JOIN offers ON orders.offer_id=offers.id where orders.user_id="4";
