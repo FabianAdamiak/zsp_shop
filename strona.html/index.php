@@ -5,26 +5,34 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <?php
-    $db = new mysqli("localhost", "root", "", "shop");
+    <form  method="POST">
+                        <h2>LOGIN</h2>
+                        <h2><a href="register.php" style="">SIGN UP</a></h2>
     
-    if(isset($_POST["out"])){
-        if($_POST["out"] == 1){
-            setcookie("userID", NULL);
-            header('Location: index.php');
-        }
-    }
-
-    if(!isset($_COOKIE["userID"])){
-        if(isset($_POST["login"]) && isset($_POST["password"])){
-            $sql = "SELECT `id` FROM `account` WHERE `login`='".$_POST["login"]."' AND `password`='".md5($_POST["password"])."';";
-        }
-    }
-    
-            if($res = $db -> query ($user_add));
-                if(mysqli_num_rows($res) != 0){
-                    $logedID = $res->fetch_assoc()["id"];
-                    setcookie("userID", $logedID);
-                    header('Location: index.php');
+                        <label>Email</label>    
+                        <input type="text" name="login" id="login" placeholder="login"><br>
+                        <label>Password</label>
+                        <input type="password" name="haslo" id="haslo" placeholder="podaj haslo"><br> 
+                        <button type="submit">Login</button>
+        </form>
+<?php
+            $con = new mysqli('localhost','root','','zsp-shop');
+            if (isset($_POST["login"]) && isset($_POST["haslo"])){
+                $t = "SELECT id FROM users WHERE login='".$_POST["login"]."' AND password='".$_POST["haslo"]."'";
+                $result = $con->query($t);
+                $id = $result->fetch_all(MYSQLI_ASSOC);
+                if (count($id)>0){
+                        session_start();
+                        $_SESSION["user_email"] = $_POST["login"];
+                        header("location:Strona.php");
                 }
+                else{
+                        print("Nieprawidłowy login lub hasło");
+                
+                };
+            };
+        
+        ?>
+    </body>
     
+</html>
